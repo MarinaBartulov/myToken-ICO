@@ -23,6 +23,9 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+require('babel-register');
+require('babel-polyfill');
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -83,6 +86,8 @@ module.exports = {
     // timeout: 100000
   },
 
+  contracts_directory: './src/contracts/',
+  contracts_build_directory: './src/abis/',
   // Configure your compilers
   compilers: {
     solc: {
