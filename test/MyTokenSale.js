@@ -66,4 +66,23 @@ contract("MyTokenSale", (accounts) => {
 			})
 		})
 	})
+
+	describe('testing ending the sale...', () => {
+		describe('success', () => {
+			it("trying to end the sale by admin...", async () => {
+				let numberOfTokens = 10;
+				let value = numberOfTokens * tokenPrice;
+				await myTokenSale.buyTokens(numberOfTokens, { from: buyer, value: value})
+				const receipt = await myTokenSale.endSale({ from: admin}); 
+				expect(Number(await myToken.balanceOf(admin))).to.eq(999990)
+				// can't test selfdestruct
+			})
+		})
+
+		describe('failure', () => {
+			it("trying to end the sale by someone who is not admin...", async () => {
+				await myTokenSale.endSale({ from: buyer}).should.be.rejectedWith(EVM_REVERT); 
+			})
+		})
+	})
 })

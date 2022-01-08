@@ -4,7 +4,7 @@ import './MyToken.sol';
 
 contract MyTokenSale {
 
-	address admin; // don't want to expose the admin address
+	address payable admin; // don't want to expose the admin address, payable - because of selfdestruct
 	MyToken public tokenContract;
 	uint256 public tokenPrice;
 	uint256 public tokensSold;
@@ -38,5 +38,14 @@ contract MyTokenSale {
 
 		// trigger Sell Event
 		emit Sell(msg.sender, _numberOfTokens);
+	}
+
+
+	function endSale() public {
+		require(msg.sender == admin, 'Error, only admin can end the sale.');
+		// transfer remaining myToken tokens to admin
+		require(tokenContract.transfer(admin, tokenContract.balanceOf(address(this))));
+		// destroy contract - disabling the contract, resets all state variables
+		selfdestruct(admin);
 	}
 }
