@@ -23,8 +23,8 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
-require('babel-register');
-require('babel-polyfill');
+require('@babel/register');
+require('@babel/polyfill');
 
 module.exports = {
   /**
