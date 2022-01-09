@@ -12,6 +12,7 @@ import MyTokenSale from '../abis/MyTokenSale.json';
 function App() {
 
 const [web3, setWeb3] = useState('undefined');
+const [netId, setNetId] = useState('');
 const [account, setAccount] = useState('');
 const [tokenSymbol, setTokenSymbol] = useState('');
 const [tokenPrice, setTokenPrice] = useState(0);
@@ -22,7 +23,7 @@ const [tokensSold, setTokensSold] = useState(0);
 const [tokensAvailable, setTokensAvailable] = useState(750000);
 const [tokensSoldPercentage, setTokensSoldPercentage] = useState(70);
 
-const [numberOfTokensToBuy, setNumberOfTokensToBuy] = useState(0);
+const [numberOfTokensToBuy, setNumberOfTokensToBuy] = useState('');
 
 useEffect(() => {
   loadBlockchainData();
@@ -37,6 +38,7 @@ const loadBlockchainData = async () => {
       if(typeof accounts[0] !== 'undefined'){
         setAccount(accounts[0])
         setWeb3(web3)
+        setNetId(netId)
       }else{
         window.alert('Please login with MetaMask')
       }
@@ -56,7 +58,15 @@ const loadBlockchainData = async () => {
         setTokensSold(tokensSold)
         const tokensSoldPercentage = (tokensSold / tokensAvailable).toFixed(2)*100;
         setTokensSoldPercentage(tokensSoldPercentage)
-        
+
+        //Listen for Sell event
+        myTokenSale.events.Sell({
+          fromBlock: 'latest',
+        }, (error, event) => {
+          console.log(event)
+          reloadContractsData(myToken, myTokenSale, accounts[0], web3)
+        })
+
       } catch(e){
         console.log('Error',e)
         window.alert('Contracts not deployed to the current network')
@@ -64,6 +74,21 @@ const loadBlockchainData = async () => {
   }else{   
     window.alert("Please install MetaMask")
   }
+}
+
+const reloadContractsData = async (myToken, myTokenSale, account, web3) => {
+  //Get number of tokens for the current account
+  const tokens = await myToken.methods.balanceOf(account).call()
+  setNumberOfTokens(tokens)
+  const tokenSymbol = await myToken.methods.symbol().call()
+  setTokenSymbol(tokenSymbol)
+  const tokenPrice = await myTokenSale.methods.tokenPrice().call()
+  setTokenPrice(web3.utils.fromWei(tokenPrice))
+  const tokensSold = await myTokenSale.methods.tokensSold().call()
+  setTokensSold(tokensSold)
+  const tokensSoldPercentage = (tokensSold / tokensAvailable).toFixed(2)*100;
+  setTokensSoldPercentage(tokensSoldPercentage)
+  setNumberOfTokensToBuy('')
 }
 
 const buyTokens = async (e) => {
@@ -103,6 +128,7 @@ const buyTokens = async (e) => {
                   className="form-control form-control-md"
                   placeholder="Number of tokens..."
                   required
+                  value={numberOfTokensToBuy}
                   onChange={event => setNumberOfTokensToBuy(event.target.value)}
                 />
               </div>
