@@ -6,5 +6,8 @@ module.exports = async function (deployer) {
   const token = await MyToken.deployed()
   // Token price is 0.001 Ether
   let tokenPrice = 1000000000000000;
-  await deployer.deploy(MyTokenSale, token.address, tokenPrice);
+  let tokensAvailabe = 750000;
+  const myTokenSale = await deployer.deploy(MyTokenSale, token.address, tokenPrice);
+  // Provision tokens to token sale contract
+  await token.transfer(myTokenSale.address, tokensAvailabe)
 };
