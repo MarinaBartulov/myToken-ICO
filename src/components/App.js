@@ -4,15 +4,18 @@ import CustomNavbar from './CustomNavbar';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import ProgressBar from 'react-bootstrap/ProgressBar'; 
+import Spinner from 'react-bootstrap/Spinner';
 import Web3 from 'web3';
 import MyToken from '../abis/MyToken.json';
 import MyTokenSale from '../abis/MyTokenSale.json';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
 
 const [web3, setWeb3] = useState('undefined');
-const [netId, setNetId] = useState('');
 const [account, setAccount] = useState('');
 const [tokenSymbol, setTokenSymbol] = useState('');
 const [tokenPrice, setTokenPrice] = useState(0);
@@ -25,9 +28,20 @@ const [tokensSoldPercentage, setTokensSoldPercentage] = useState(70);
 
 const [numberOfTokensToBuy, setNumberOfTokensToBuy] = useState('');
 
+const [loading, setLoading] = useState(true);
+const [loadingSell, setLoadingSell] = useState(false);
+const [showMessage, setShowMessage] = useState(false);
+
 useEffect(() => {
   loadBlockchainData();
 },[])
+
+useEffect(() => {
+  if(showMessage){
+    toast.success("You successfully bought MYT tokens!")
+  }
+},[showMessage])
+
 
 const loadBlockchainData = async () => {
   if(typeof window.ethereum !== 'undefined'){
@@ -38,7 +52,6 @@ const loadBlockchainData = async () => {
       if(typeof accounts[0] !== 'undefined'){
         setAccount(accounts[0])
         setWeb3(web3)
-        setNetId(netId)
       }else{
         window.alert('Please login with MetaMask')
       }
@@ -58,7 +71,7 @@ const loadBlockchainData = async () => {
         setTokensSold(tokensSold)
         const tokensSoldPercentage = (tokensSold / tokensAvailable).toFixed(2)*100;
         setTokensSoldPercentage(tokensSoldPercentage)
-
+        setLoading(false);
         //Listen for Sell event
         myTokenSale.events.Sell({
           fromBlock: 'latest',
@@ -89,22 +102,34 @@ const reloadContractsData = async (myToken, myTokenSale, account, web3) => {
   const tokensSoldPercentage = (tokensSold / tokensAvailable).toFixed(2)*100;
   setTokensSoldPercentage(tokensSoldPercentage)
   setNumberOfTokensToBuy('')
+  setShowMessage(true)
+  setLoadingSell(false)
+
 }
 
 const buyTokens = async (e) => {
   e.preventDefault();
-  console.log(numberOfTokensToBuy)
+  setShowMessage(false)
   try{
     await myTokenSale.methods.buyTokens(numberOfTokensToBuy).send({from: account, value: numberOfTokensToBuy * web3.utils.toWei(tokenPrice), gas: 500000})
+    setLoadingSell(true)
   }catch(e){
     console.log('Error, buyTokens: ', e)
   }
 }
 
-  return (
-    <div className="App">
+  return ( 
+      <div className="App">
+      <ToastContainer theme="colored" />
       <CustomNavbar>
       </CustomNavbar>
+      {loading && 
+      <Container>
+      <Spinner animation="grow" variant="warning" className="mt-5"/>
+      </Container>
+      }
+      {!loading &&
+      <>
       <Container>
         <Card bg="warning" className="mt-3">
           <h1>MyToken ICO sale</h1>
@@ -140,7 +165,14 @@ const buyTokens = async (e) => {
             <p>{tokensSold}/{tokensAvailable} tokens sold</p>
           </div>
         </Card>
+        {loadingSell && 
+          <Container>
+          <Spinner animation="grow" variant="warning" className="mt-5"/>
+          </Container>
+          }
       </Container>
+      </>
+    }
     </div>
   );
 }
