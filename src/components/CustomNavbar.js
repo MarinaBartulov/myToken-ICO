@@ -1,5 +1,6 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import logo from '../assets/logo.jpg';
 
 function CustomNavbar() {
   return (
@@ -8,7 +9,7 @@ function CustomNavbar() {
             <Navbar.Brand href="#home">
               <img
                 alt=""
-                src="/logo.jpg"
+                src={logo}
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
