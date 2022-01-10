@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/myToken-ICO/static/css/main.2bcf28c1.chunk.css",
+    "main.js": "/myToken-ICO/static/js/main.45fe841c.chunk.js",
+    "main.js.map": "/myToken-ICO/static/js/main.45fe841c.chunk.js.map",
+    "runtime-main.js": "/myToken-ICO/static/js/runtime-main.1e44e6b6.js",
+    "runtime-main.js.map": "/myToken-ICO/static/js/runtime-main.1e44e6b6.js.map",
+    "static/css/2.b0ce55e0.chunk.css": "/myToken-ICO/static/css/2.b0ce55e0.chunk.css",
+    "static/js/2.5e5620cf.chunk.js": "/myToken-ICO/static/js/2.5e5620cf.chunk.js",
+    "static/js/2.5e5620cf.chunk.js.map": "/myToken-ICO/static/js/2.5e5620cf.chunk.js.map",
+    "static/js/3.c4ee4020.chunk.js": "/myToken-ICO/static/js/3.c4ee4020.chunk.js",
+    "static/js/3.c4ee4020.chunk.js.map": "/myToken-ICO/static/js/3.c4ee4020.chunk.js.map",
+    "index.html": "/myToken-ICO/index.html",
+    "static/css/2.b0ce55e0.chunk.css.map": "/myToken-ICO/static/css/2.b0ce55e0.chunk.css.map",
+    "static/css/main.2bcf28c1.chunk.css.map": "/myToken-ICO/static/css/main.2bcf28c1.chunk.css.map",
+    "static/js/2.5e5620cf.chunk.js.LICENSE.txt": "/myToken-ICO/static/js/2.5e5620cf.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1e44e6b6.js",
+    "static/css/2.b0ce55e0.chunk.css",
+    "static/js/2.5e5620cf.chunk.js",
+    "static/css/main.2bcf28c1.chunk.css",
+    "static/js/main.45fe841c.chunk.js"
+  ]
+}
