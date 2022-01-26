@@ -19,4 +19,4 @@
 - One MYT costs 0.001 ETH
 - The app is also deployed to IPFS
 - If you have IPFS node on your machine you can access it using this URL: http://127.0.0.1:8080/ipfs/QmWf3HxfX9vR8sN69HXQyog4PUbraU9AxFnW7x6tYz7Dff/
-- Or can access it using this URL: https://ipfs.io/ipfs/bafybeid3sn6ekpswn2onxg44hhg2r5jtesvan2iy7piqjjd5hm7kveqmsi/
+- Or you can access it using this URL: https://ipfs.io/ipfs/bafybeid3sn6ekpswn2onxg44hhg2r5jtesvan2iy7piqjjd5hm7kveqmsi/
