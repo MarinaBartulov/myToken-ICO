@@ -10,12 +10,10 @@
 - Rinkeby Test Network, Geth, IPFS
 
 ## How to use it?
-- Create an account on Rinkeby Test Network
 - Install MetaMask wallet in your browser and switch to Rinkeby Test Network
-- Import your account into MetaMask and send test ETH to that account
+- Send some test ETH to your account
 - Access the app using this URL: https://marinabartulov.github.io/myToken-ICO/
-- Connect MetaMask to the app using imported account
+- Connect MetaMask to the app using your account
 - Input the amount of tokens you would like to buy (You must have enough ETH in your wallet for that)
 - One MYT costs 0.001 ETH
-- The app is also deployed to IPFS: https://ipfs.io/ipfs/QmWf3HxfX9vR8sN69HXQyog4PUbraU9AxFnW7x6tYz7Dff/
-- If you have IPFS node on your machine you can access it using this URL: http://127.0.0.1:8080/ipfs/QmWf3HxfX9vR8sN69HXQyog4PUbraU9AxFnW7x6tYz7Dff/
+- The app is also deployed on IPFS: https://ipfs.io/ipfs/QmWf3HxfX9vR8sN69HXQyog4PUbraU9AxFnW7x6tYz7Dff/
